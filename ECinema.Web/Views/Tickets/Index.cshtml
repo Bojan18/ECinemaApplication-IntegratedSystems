@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ECinema.Web.Models.DomainModels.Ticket>
+
+<h1>Tickets</h1>
+
+@using (Html.BeginForm("Index", "Tickets", FormMethod.Get))
+{
+    <div class="form-group">
+        <label for="filterDate">Filter by Date:</label>
+        <input type="date" id="filterDate" name="filterDate" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-secondary">Apply Filter</button>
+    <a href="@Url.Action("Index", "Tickets")" class="btn btn-secondary">Clear Filter</a>
+}
+
+<p>
+    <a class="btn btn-dark mt-3" asp-action="Create">Create New</a>
+</p>
+
+<div class="row">
+    @foreach (var item in Model)
+    { 
+        <div class="col-md-4">
+            <div class="card mb-4">
+                @if (item.movie != null)
+                {
+                    <img class="card-img-top" src="@item.movie.MovieImage" alt="Picture">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.movie.MovieName - @item.movie.Genre</h5>
+                        <p class="card-text">Price: @item.TicketPrice</p>
+                        <p class="card-text">Date: @item.MovieDate</p>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
