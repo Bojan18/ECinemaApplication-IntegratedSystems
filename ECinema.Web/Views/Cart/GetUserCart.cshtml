@@ -1,0 +1,50 @@
+﻿@using ECinema.Web.Models.DomainModels
+@model ShoppingCart
+
+@{
+    ViewData["Title"] = "GetUserCart";
+}
+
+<h1>GetUserCart</h1>
+
+<div style="width: 90%; margin: auto">
+    @if (Model != null && Model.CartDetails != null)
+    {
+        <h3>My Cart</h3>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Movie</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var item in Model.CartDetails)
+            {
+                <tr>
+                    <td>@item.Ticket.movie.MovieName</td>
+                    <td>@item.Ticket.TicketPrice</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.Quantity * item.Ticket.TicketPrice)</td>
+                    <td>
+                        <a class="btn btn-info" href="/Cart/Create?ticketId=@item.TicketId&&redirect=1">+</a>
+                        <a class="btn btn-info" href="/Cart/Delete?ticketId=@item.TicketId">-</a>
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="py-2">
+            <h5>Total: </h5> @(Model.CartDetails.Select(item => item.Ticket.TicketPrice * item.Quantity).Sum())
+        </div>
+
+        <div class="py-2">
+            <a class="btn btn-primary" href="#">Checkout</a>
+        </div>
+    }
+    else
+    {
+        <h4>Cart is empty</h4>
+    }
+</div>

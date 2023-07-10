@@ -20,6 +20,13 @@ namespace ECinema.Web.Data
         public  virtual DbSet<Actor> Actors { get; set; }
         public virtual DbSet<ActorsInMovies> actorsInMovies { get; set; }
 
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual DbSet<CartDetail> CartDetails { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+        public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

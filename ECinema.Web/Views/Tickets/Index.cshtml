@@ -31,9 +31,25 @@
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        <a onclick="add('@item.Id')" class="btn btn-warning mt-2">Add to Cart</a>
                     </div>
                 }
             </div>
         </div>
     }
 </div>
+
+@section Scripts{
+    <script>
+        async function add(ticketId){
+            var response = await fetch(`/Cart/Create?ticketId=${ticketId}`);
+
+            if (response.status == 200) {
+                var result = await response.json();
+                console.log(result);
+                var cartCount = document.getElementById("cartCount");
+                cartCount.innerHTML = result;
+            }
+        }
+    </script>
+}

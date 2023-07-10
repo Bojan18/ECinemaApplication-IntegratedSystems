@@ -15,5 +15,7 @@ namespace ECinema.Web.Models.DomainModels
         public float TicketPrice { get; set; }
         public Movie movie { get; set; }
 
+        public List<OrderDetail> OrderDetails { get; set; }
+        public List<CartDetail> CartDetails { get; set; }
     }
 }

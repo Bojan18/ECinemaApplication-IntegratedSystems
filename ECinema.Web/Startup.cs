@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ECinema.Web.Data;
 using ECinema.Web.Models.Identity;
+using ECinema.Web.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
+
      
 namespace ECinema.Web
 {
@@ -35,6 +38,7 @@ namespace ECinema.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddTransient<CartRepository, CartRepositoryImpl>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,10 +66,10 @@ namespace ECinema.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-        name: "createTicket",
-        pattern: "Tickets/Create",
-        defaults: new { controller = "Tickets", action = "Create" }
-    );
+                name: "createTicket",
+                pattern: "Tickets/Create",
+                defaults: new { controller = "Tickets", action = "Create" }
+            );
 
                 endpoints.MapControllerRoute(
                     name: "default",
